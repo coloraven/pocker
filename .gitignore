@@ -1,0 +1,14 @@
+# Ignore build artifacts
+/pocker
+/pocker.exe
+/dist/
+*.tar.gz
+*.tar
+
+# Local / IDE / secrets
+.env
+.env.*
+*.pem
+*.key
+.specstory/
+.cursorindexingignore
