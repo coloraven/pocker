@@ -82,6 +82,23 @@ pocker pull ghcr.io/username/image:tag --tag username/images:tag
 # 若 username/images:tag 本地已存在 → 直接报错，不开始 pull
 ```
 
+从 Dockerfile 或 docker-compose 文件批量拉取（`--file` / `-f`）：
+
+```bash
+pocker pull -f Dockerfile
+# 读取所有 FROM 镜像；跳过构建阶段名（FROM x AS builder）、构建参数与 ${VAR} 占位符
+
+pocker pull -f docker-compose.yml
+pocker pull -f docker-compose.yaml
+# 读取所有 image: 值；跳过空值与 ${VAR} 占位符
+
+# 可与 --tag 组合：额外 tag 会应用到每个镜像
+pocker pull -f docker-compose.yml -t myapp:latest
+```
+
+文件类型按文件名识别（`Dockerfile*` / `*.dockerfile` / `docker-compose*.yml|yaml` / `compose*.yml|yaml`），
+`-f` 与位置参数 IMAGE 不能同时使用；任一镜像拉取失败即中止后续拉取。
+
 ### save — 远程 → 本地 docker-archive
 
 可指定输出路径（位置参数或 `-o`），以及额外 tag（`--tag` / `-t`）：
